@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai Try form Key</title>
+</head>
+<body>
+    hey i am here now 
+
+    Enter Your prompt <input type="text" name="input" id="input">
+    <button id="butGet"> Generate Text</button>
+    <p id="textai">
+        
+    </p>
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+      </script>
+      <script type="module">
+        let prompt=document.querySelector('input[type=text]')
+        let butGet=document.querySelector('#butGet')
+        let textai=document.querySelector('#textai')
+
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+        // Fetch your API_KEY
+        const API_KEY = "...";
+  
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI('AIzaSyAQlocXCvuEuR-r76RX8a9LybL5un7MnS4');
+  
+        // ...
+  
+        butGet.addEventListener('click', async ()=>{
+               // For text-only input, use the gemini-pro model
+               const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+          
+          
+               const result = await model.generateContent(prompt.value);
+               const response = await result.response;
+               const text = response.text();
+               console.log(text);
+               textai.innerHTML=text;
+        })
+
+  
+        // ...
+      </script>
+</body>
+</html>
